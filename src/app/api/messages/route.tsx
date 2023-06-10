@@ -7,6 +7,10 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
+export const config = {
+  runtime: 'edge',
+}
+
 export async function POST(request: NextRequest) {
   if (!configuration.apiKey) {
     return new NextResponse(
@@ -22,6 +26,8 @@ export async function POST(request: NextRequest) {
 
   // GPTに送るメッセージを取得
   const { message } = await request.json()
+  //   リクエストのホスト名
+  //   const domain = request.headers.get('host') ?? '不明'
 
   try {
     // 設定を諸々のせてAPIとやり取り
