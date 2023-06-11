@@ -1,5 +1,5 @@
 import { Avatar, Flex } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Message } from '../types/custom'
 
