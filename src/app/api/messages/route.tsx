@@ -39,14 +39,19 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error: unknown) {
-    // Consider adjusting the error handling logic for your use case
-    if (error.response) {
-      console.error(error.response.status, error.response.data)
-      return new NextResponse(JSON.stringify(error.response.data), {
-        status: error.response.status,
+    if (error instanceof Error && 'response' in error) {
+      // responseError.response.status と responseError.response.data へのアクセスをTypeScriptに対して許可する
+      const responseError = error as { response: { status: number; data: any } }
+
+      console.error(responseError.response.status, responseError.response.data)
+      return new NextResponse(JSON.stringify(responseError.response.data), {
+        status: responseError.response.status,
       })
     } else {
-      console.error(`Error with OpenAI API request: ${error.message}`)
+      const message =
+        error instanceof Error ? error.message : 'An unknown error occurred'
+
+      console.error(`Error with OpenAI API request: ${message}`)
       return new NextResponse(
         JSON.stringify({
           error: {
