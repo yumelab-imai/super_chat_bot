@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       JSON.stringify({ result: completion.data.choices[0].message }),
       { status: 200 }
     )
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data)
