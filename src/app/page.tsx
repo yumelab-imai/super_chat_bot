@@ -22,20 +22,21 @@ const Home: NextPage = () => {
     window.DocsBotAI = window.DocsBotAI || {}
     window.DocsBotAI.init = function (c) {
       return new Promise(function (e, o) {
-        let t = document.createElement('script')
+        const t = document.createElement('script')
         t.type = 'text/javascript'
         t.async = true
         t.src = 'https://widget.docsbot.ai/chat.js'
         const n = document.getElementsByTagName('script')[0]
-        n.parentNode.insertBefore(t, n)
+        if (n && n.parentNode) {
+          n.parentNode.insertBefore(t, n)
+        }
         t.addEventListener('load', function () {
           window.DocsBotAI.mount({
             id: c.id,
             supportCallback: c.supportCallback,
             identify: c.identify,
           })
-          // let t
-          t = function (n) {
+          const t = function (n) {
             return new Promise(function (e) {
               if (document.querySelector(n)) return e(document.querySelector(n))
               const o = new MutationObserver(function (t) {
