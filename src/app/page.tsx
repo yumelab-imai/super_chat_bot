@@ -11,6 +11,12 @@ import ThreeDotsLoader from './components/ThreeDotsLoader'
 import { system_prompt } from './constants/constants'
 import { useEffect } from 'react'
 
+declare global {
+  interface Window {
+    DocsBotAI: any
+  }
+}
+
 const Home: NextPage = () => {
   useEffect(() => {
     window.DocsBotAI = window.DocsBotAI || {}
